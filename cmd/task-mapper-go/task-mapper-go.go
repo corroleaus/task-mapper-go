@@ -1,12 +1,15 @@
 package main
 
 import (
-	"fmt"
-	"github.com/corroleaus/task-mapper-go/internal"
+	"github.com/corroleaus/task-mapper-go/internal/concurrent"
 )
 
-
 func main() {
-	x := Concurrent.ThreadPool{Threadsmax:9}
-	fmt.Printf("%d\n", x.Threadsmax)
+	pool := concurrent.NewPool(10)
+	concurrent.Execute(pool)
+	for i := 0; i < 100; i++ {
+		pool.Submit(concurrent.TimeConsuming)
+	}
+
+	// time.Sleep(12 * time.Second)
 }
